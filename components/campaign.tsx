@@ -13,6 +13,7 @@ import {
   Burger,
 } from "@/components/brand-icon";
 import { benefits, getPreviewResult, type Benefit } from "@/lib/campaign";
+import { WheelAudio } from "@/lib/wheel-audio";
 import Wheel from "@/components/wheel";
 const icons = [Fries, CupSoda, IceCreamBowl, Burger, Percent];
 import CampaignBackground from "@/components/campaign-background";
@@ -25,7 +26,12 @@ export default function Campaign() {
   const [introReady, setIntroReady] = useState(false);
   const finishIntro = useCallback(() => setIntroReady(true), []);
   const pointerRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<WheelAudio | null>(null);
+  function getAudio() {
+    return (audioRef.current ??= new WheelAudio());
+  }
   function tick() {
+    audioRef.current?.tick();
     if (!reduced)
       pointerRef.current?.animate(
         [
@@ -40,7 +46,7 @@ export default function Campaign() {
   const [spinning, setSpinning] = useState(false);
   const [result, setResult] = useState<Benefit | null>(null);
   const [step, setStep] = useState<"result" | "rules" | "privacy" | null>(null);
-  const [sound, setSound] = useState(false);
+  const [sound, setSound] = useState(true);
   const [error, setError] = useState("");
   const [origin, setOrigin] = useState("");
   const busy = useRef(false);
@@ -54,6 +60,8 @@ export default function Campaign() {
     );
     return () => {
       if (timer.current) clearTimeout(timer.current);
+      audioRef.current?.dispose();
+      audioRef.current = null;
     };
   }, []);
   useEffect(() => {
@@ -88,6 +96,7 @@ export default function Campaign() {
   }, [step]);
   async function spin() {
     if (busy.current) return;
+    getAudio().unlock();
     busy.current = true;
     setSpinning(true);
     setError("");
@@ -96,21 +105,9 @@ export default function Campaign() {
       const index = benefits.findIndex((b) => b.id === picked.benefit.id);
       const target = 360 - (index * 72 + 36);
       setRotation((r) => r + (360 - (r % 360)) + 360 * 6 + target);
-      if (sound) {
-        const ctx = new AudioContext();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        gain.gain.setValueAtTime(0.04, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
-        osc.frequency.value = 420;
-        osc.start();
-        osc.stop(ctx.currentTime + 0.2);
-        osc.onended = () => void ctx.close();
-      }
       timer.current = setTimeout(
         () => {
+          audioRef.current?.celebrate();
           setResult(picked.benefit);
           setStep("result");
           setSpinning(false);
@@ -137,7 +134,10 @@ export default function Campaign() {
             className="sound"
             aria-label={sound ? "Desativar som" : "Ativar som"}
             aria-pressed={sound}
-            onClick={() => setSound(!sound)}
+            onClick={() => {
+              getAudio().setEnabled(!sound);
+              setSound(!sound);
+            }}
           >
             {sound ? <Volume2 size={18} /> : <VolumeX size={18} />}
           </button>
