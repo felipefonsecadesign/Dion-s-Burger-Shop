@@ -13,7 +13,7 @@ Abra http://localhost:3000/roleta?origem=mesa-01.
 
 ## Estado atual
 
-Visual oficial de pré-lançamento. O giro permite conhecer os benefícios, mas não reserva prêmio. Cadastro e resgate estão desativados; não há coleta de dados de participantes nem emissão de voucher. O adaptador `getPreviewResult` em `lib/campaign.ts` faz apenas a seleção visual local, sem probabilidades comerciais aprovadas. O backend decidirá os resultados quando a campanha for implementada e ativada.
+Visual oficial de pré-lançamento. O giro permite conhecer os benefícios, mas não reserva prêmio. O cadastro de interesse está conectado ao Supabase; não há reserva de prêmio nem emissão de voucher. O resgate continua desativado. O adaptador `getPreviewResult` em `lib/campaign.ts` faz apenas a seleção visual local, sem probabilidades comerciais aprovadas. O backend decidirá os resultados quando a campanha for implementada e ativada.
 
 ## Identidade e movimento
 
