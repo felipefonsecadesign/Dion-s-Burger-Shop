@@ -2,7 +2,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
-  ArrowRight,
   Volume2,
   VolumeX,
   X,
@@ -20,6 +19,7 @@ import CampaignBackground from "@/components/campaign-background";
 import Celebration from "@/components/celebration";
 import Preloader from "@/components/preloader";
 import SnakeBackdrop from "@/components/snake-backdrop";
+import CustomerForm from "@/components/customer-form";
 export default function Campaign() {
   const contentRef = useRef<HTMLDivElement>(null);
   const [introReady, setIntroReady] = useState(false);
@@ -263,7 +263,8 @@ export default function Campaign() {
             <button onClick={() => setStep("privacy")}>Privacidade</button>
           </nav>
           <small>
-            Campanha em pré-lançamento. Cadastro e resgate em breve.
+            Campanha em pré-lançamento. Cadastre-se para acompanhar. Resgates em
+            breve.
             {origin && ` Origem: ${origin}`}
           </small>
         </footer>
@@ -307,40 +308,11 @@ export default function Campaign() {
                     <strong>{result.name}</strong>
                     <p>{result.caption}</p>
                   </div>
-                  <p>O cadastro e o resgate serão liberados no lançamento.</p>
-                  <form onSubmit={(e) => e.preventDefault()}>
-                    <fieldset disabled className="prelaunch-fields">
-                      <legend className="sr-only">
-                        Cadastro disponível no lançamento
-                      </legend>
-                      <label>
-                        Nome completo
-                        <input
-                          autoComplete="off"
-                          placeholder="Seu nome completo"
-                        />
-                      </label>
-                      <label>
-                        WhatsApp
-                        <input
-                          type="tel"
-                          autoComplete="off"
-                          placeholder="(00) 90000-0000"
-                        />
-                      </label>
-                      <label>
-                        E-mail <small>(opcional)</small>
-                        <input
-                          type="email"
-                          autoComplete="off"
-                          placeholder="voce@exemplo.com"
-                        />
-                      </label>
-                    </fieldset>
-                    <button type="button" className="primary" disabled>
-                      RESGATE EM BREVE <ArrowRight size={20} />
-                    </button>
-                  </form>
+                  <p>
+                    Entre na lista para acompanhar o lançamento. O giro não
+                    reserva benefícios.
+                  </p>
+                  <CustomerForm source={origin} />
                 </>
               )}
               {step === "rules" && (
@@ -351,7 +323,7 @@ export default function Campaign() {
                     benefícios enquanto preparamos a experiência completa.
                   </p>
                   <p>
-                    Cadastro e resgate ainda não estão disponíveis. Os giros
+                    O cadastro registra seu interesse no lançamento. Os giros
                     desta etapa não reservam benefícios nem emitem vouchers.
                   </p>
                   <p>
@@ -380,8 +352,9 @@ export default function Campaign() {
                     .
                   </p>
                   <p>
-                    O cadastro está desativado durante o pré-lançamento. Nenhum
-                    dado de participação é enviado ou armazenado.
+                    Os dados do cadastro de interesse são guardados no Supabase,
+                    com acesso restrito à equipe. Nenhum voucher é emitido nesta
+                    etapa.
                   </p>
                   <p>
                     O parâmetro de origem identifica o acesso apenas nesta

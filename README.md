@@ -31,3 +31,7 @@ Supabase/Postgres, sorteio e idempotência no servidor, consentimentos, regulame
 npm run typecheck
 npm run build
 ```
+
+## Cadastro de interesse conectado
+
+O formulário de interesse agora grava no Supabase pela Edge Function `capture-customer`. Cadastro não gera voucher nem reserva benefício. Migração, funções e testes estão versionados em `supabase/` e `scripts/test-capture.mjs`; detalhes operacionais e ativação da planilha em `docs/backend.md`.
