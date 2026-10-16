@@ -8,4 +8,4 @@ export const benefits = [
 export type Benefit = typeof benefits[number];
 // Visual demo only. No commercial probabilities or real award decisions.
 // Replace this adapter with the server participation endpoint in phase 2.
-export async function getDemoResult() { await new Promise(r=>setTimeout(r,250)); return {benefit:benefits[crypto.getRandomValues(new Uint32Array(1))[0] % benefits.length], participationId:crypto.randomUUID()}; }
+export async function getPreviewResult() { await new Promise(r=>setTimeout(r,250)); return {benefit:benefits[crypto.getRandomValues(new Uint32Array(1))[0] % benefits.length], participationId:crypto.randomUUID()}; }

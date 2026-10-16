@@ -2,21 +2,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import {
-  ArrowUpRight,
+  ArrowRight,
   Volume2,
   VolumeX,
   X,
   Ticket,
-  Instagram,
-  RotateCcw,
   Fries,
   IceCreamBowl,
   CupSoda,
   Percent,
   Burger,
-  Sparkles,
 } from "@/components/brand-icon";
-import { benefits, getDemoResult, type Benefit } from "@/lib/campaign";
+import { benefits, getPreviewResult, type Benefit } from "@/lib/campaign";
 import Wheel from "@/components/wheel";
 const icons = [Fries, CupSoda, IceCreamBowl, Burger, Percent];
 import CampaignBackground from "@/components/campaign-background";
@@ -42,12 +39,8 @@ export default function Campaign() {
   const [rotation, setRotation] = useState(0);
   const [spinning, setSpinning] = useState(false);
   const [result, setResult] = useState<Benefit | null>(null);
-  const [step, setStep] = useState<
-    "result" | "instagram" | "voucher" | "rules" | "privacy" | null
-  >(null);
+  const [step, setStep] = useState<"result" | "rules" | "privacy" | null>(null);
   const [sound, setSound] = useState(false);
-  const [name, setName] = useState("");
-  const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [origin, setOrigin] = useState("");
   const busy = useRef(false);
@@ -71,8 +64,9 @@ export default function Campaign() {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") setStep(null);
       if (e.key === "Tab") {
-        const items =
-          dialogRef.current?.querySelectorAll<HTMLElement>("button,a,input");
+        const items = dialogRef.current?.querySelectorAll<HTMLElement>(
+          "button:not(:disabled),a[href],input:not(:disabled)",
+        );
         if (!items?.length) return;
         const first = items[0],
           last = items[items.length - 1];
@@ -98,7 +92,7 @@ export default function Campaign() {
     setSpinning(true);
     setError("");
     try {
-      const picked = await getDemoResult();
+      const picked = await getPreviewResult();
       const index = benefits.findIndex((b) => b.id === picked.benefit.id);
       const target = 360 - (index * 72 + 36);
       setRotation((r) => r + (360 - (r % 360)) + 360 * 6 + target);
@@ -118,7 +112,6 @@ export default function Campaign() {
       timer.current = setTimeout(
         () => {
           setResult(picked.benefit);
-          setCode(`DEMO-${picked.participationId.slice(0, 8).toUpperCase()}`);
           setStep("result");
           setSpinning(false);
           busy.current = false;
@@ -151,8 +144,8 @@ export default function Campaign() {
           </button>
         </header>
         <section className="hero">
-          <div className="demo-tag">
-            <span /> MODO DEMONSTRAÇÃO
+          <div className="campaign-tag">
+            <span /> EM BREVE NA DION’S
           </div>
           <h1>
             SUA <span>SORTE</span>
@@ -180,9 +173,7 @@ export default function Campaign() {
                 className="spin-button"
                 onClick={spin}
                 disabled={spinning}
-                aria-label={
-                  spinning ? "Roleta girando" : "Girar roleta de demonstração"
-                }
+                aria-label={spinning ? "Roleta girando" : "Girar roleta"}
               >
                 <span>{spinning ? "GIRANDO" : "GIRAR"}</span>
                 <small>{spinning ? "SEGURA A EMOÇÃO" : "TOCA AQUI"}</small>
@@ -230,7 +221,7 @@ export default function Campaign() {
           <div className="benefits-heading">
             <p>SEU PEDIDO + UM AGRADO</p>
             <h2>Olha o que pode sair.</h2>
-            <span>Benefícios ilustrativos. Aqui, a diversão é de verdade.</span>
+            <span>Um giro. Um agrado para o seu pedido.</span>
           </div>
           <div className="benefits">
             {benefits.map((b, i) => {
@@ -272,7 +263,7 @@ export default function Campaign() {
             <button onClick={() => setStep("privacy")}>Privacidade</button>
           </nav>
           <small>
-            Demonstração visual. Nenhum benefício real será emitido.
+            Campanha em pré-lançamento. Cadastro e resgate em breve.
             {origin && ` Origem: ${origin}`}
           </small>
         </footer>
@@ -300,172 +291,73 @@ export default function Campaign() {
               >
                 <X />
               </button>
-              <span className="modal-demo">
-                DEMONSTRAÇÃO · SEM VALOR DE RESGATE
-              </span>
+              <span className="modal-kicker">PRÉ-LANÇAMENTO</span>
               {step === "result" && result && (
                 <>
                   <Celebration />
                   <div className="celebrate" aria-hidden="true">
-                    <Sparkles size={22} /> <Ticket size={42} />{" "}
-                    <Sparkles size={22} />
+                    <Ticket className="ticket-horizontal" size={52} />
                   </div>
                   <h2 id="dialog-title">
-                    BOA!
+                    SUA SORTE
                     <br />
-                    VOCÊ GANHOU!
+                    VEM AÍ!
                   </h2>
                   <div className="prize">
                     <strong>{result.name}</strong>
                     <p>{result.caption}</p>
                   </div>
-                  <p>
-                    Teste o próximo passo com dados fictícios.
-                    <br />
-                    Nada será enviado ou salvo.
-                  </p>
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      if (name.trim().split(/\s+/).length < 2) {
-                        setError("Informe nome e sobrenome fictícios.");
-                        return;
-                      }
-                      setError("");
-                      setStep("instagram");
-                    }}
-                  >
-                    <label>
-                      Nome completo
-                      <input
-                        required
-                        autoComplete="off"
-                        placeholder="Ex.: Alex da Silva"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        maxLength={90}
-                      />
-                    </label>
-                    <label>
-                      WhatsApp
-                      <input
-                        required
-                        type="tel"
-                        inputMode="tel"
-                        autoComplete="off"
-                        placeholder="(00) 90000-0000"
-                        pattern={String.raw`[0-9 \(\)\+\-]{10,20}`}
-                        title="Use um número fictício de 10 a 20 caracteres"
-                      />
-                    </label>
-                    <label>
-                      E-mail <small>(opcional)</small>
-                      <input
-                        type="email"
-                        autoComplete="off"
-                        placeholder="voce@exemplo.com"
-                        maxLength={120}
-                      />
-                    </label>
-                    <label className="checkbox">
-                      <input type="checkbox" required /> Entendi que esta é uma
-                      simulação, sem prêmio real.
-                    </label>
-                    <label className="checkbox">
-                      <input type="checkbox" /> Quero receber novidades da
-                      Dion’s (opcional e simulado).
-                    </label>
-                    {error && <p role="alert">{error}</p>}
-                    <button className="primary">
-                      RESGATAR MEU BENEFÍCIO <ArrowUpRight size={19} />
+                  <p>O cadastro e o resgate serão liberados no lançamento.</p>
+                  <form onSubmit={(e) => e.preventDefault()}>
+                    <fieldset disabled className="prelaunch-fields">
+                      <legend className="sr-only">
+                        Cadastro disponível no lançamento
+                      </legend>
+                      <label>
+                        Nome completo
+                        <input
+                          autoComplete="off"
+                          placeholder="Seu nome completo"
+                        />
+                      </label>
+                      <label>
+                        WhatsApp
+                        <input
+                          type="tel"
+                          autoComplete="off"
+                          placeholder="(00) 90000-0000"
+                        />
+                      </label>
+                      <label>
+                        E-mail <small>(opcional)</small>
+                        <input
+                          type="email"
+                          autoComplete="off"
+                          placeholder="voce@exemplo.com"
+                        />
+                      </label>
+                    </fieldset>
+                    <button type="button" className="primary" disabled>
+                      RESGATE EM BREVE <ArrowRight size={20} />
                     </button>
                   </form>
                 </>
               )}
-              {step === "instagram" && (
-                <>
-                  <Instagram className="modal-icon" size={44} />
-                  <h2 id="dialog-title">
-                    SEU BENEFÍCIO ESTÁ
-                    <br />
-                    <em>QUASE LIBERADO!</em>
-                  </h2>
-                  <p>
-                    Para resgatar, publique um Story no Instagram marcando{" "}
-                    <strong>@dionsburgershop</strong> e mostre a publicação
-                    junto com seu voucher ao nosso atendente.
-                  </p>
-                  <div className="notice">
-                    Na campanha real, a equipe confere o Story presencialmente.
-                    Abrir o Instagram não comprova a publicação.
-                  </div>
-                  <a
-                    className="primary"
-                    href="https://www.instagram.com/dionsburgershop/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    ABRIR INSTAGRAM <ArrowUpRight size={19} />
-                  </a>
-                  <button
-                    className="secondary"
-                    onClick={() => setStep("voucher")}
-                  >
-                    VER MEU VOUCHER <Ticket size={19} />
-                  </button>
-                </>
-              )}
-              {step === "voucher" && result && (
-                <>
-                  <h2 id="dialog-title" className="sr-only">
-                    Seu voucher demonstrativo
-                  </h2>
-                  <div className="voucher">
-                    <img src="/brand/logo.svg" alt="Dion’s Burger Shop" />
-                    <span className="status">PENDENTE · DEMONSTRAÇÃO</span>
-                    <p>Esse agrado seria seu,</p>
-                    <h3>{name.trim()}</h3>
-                    <div className="voucher-prize">{result.name}</div>
-                    <div className="perforation" />
-                    <small>CÓDIGO ILUSTRATIVO</small>
-                    <strong className="code">{code}</strong>
-                    <p>Validade: não aplicável na demonstração.</p>
-                    <div className="notice">
-                      SEM VALOR DE RESGATE
-                      <br />
-                      Na campanha real, apresente o voucher e o Story à equipe.
-                      Sujeito à validade e às regras aprovadas.
-                    </div>
-                  </div>
-                  <button
-                    className="secondary"
-                    onClick={() => setStep("instagram")}
-                  >
-                    VER INSTRUÇÕES
-                  </button>
-                  <button className="text-button" onClick={() => setStep(null)}>
-                    <RotateCcw size={15} /> Voltar à roleta
-                  </button>
-                </>
-              )}
               {step === "rules" && (
                 <>
-                  <h2 id="dialog-title">Regras da demonstração</h2>
+                  <h2 id="dialog-title">Sobre a campanha</h2>
                   <p>
-                    Esta é uma prévia da experiência da Dion’s. Os cinco
-                    benefícios são fictícios e provisórios. Os giros podem ser
-                    repetidos para avaliação visual e não geram direito a
-                    prêmios.
+                    A roleta Dion’s está em pré-lançamento. Explore os
+                    benefícios enquanto preparamos a experiência completa.
                   </p>
                   <p>
-                    As chances desta simulação não representam probabilidades
-                    comerciais. Cadastro, publicação de Story, validade e
-                    resgate são apenas ilustrativos.
+                    Cadastro e resgate ainda não estão disponíveis. Os giros
+                    desta etapa não reservam benefícios nem emitem vouchers.
                   </p>
                   <p>
-                    A campanha real depende de aprovação comercial, regulamento
-                    e verificação das exigências legais. A operação e o painel
-                    serão desenvolvidos em fases posteriores.
+                    Benefícios, disponibilidade, limites e condições serão
+                    informados no regulamento antes da abertura das
+                    participações.
                   </p>
                 </>
               )}
@@ -488,21 +380,17 @@ export default function Campaign() {
                     .
                   </p>
                   <p>
-                    Nesta demonstração, os campos são usados somente na memória
-                    desta página para montar a prévia do voucher. Use dados
-                    fictícios. Nenhum cadastro é enviado a um servidor ou
-                    armazenado no navegador.
+                    O cadastro está desativado durante o pré-lançamento. Nenhum
+                    dado de participação é enviado ou armazenado.
                   </p>
                   <p>
-                    Ao recarregar a página, os dados desaparecem. O parâmetro de
-                    origem aparece apenas nesta sessão e não comprova presença
-                    física.
+                    O parâmetro de origem identifica o acesso apenas nesta
+                    página e não comprova presença física.
                   </p>
                   <p>
-                    A política definitiva, os prazos de retenção e os canais
-                    para exercer seus direitos serão definidos antes da campanha
-                    real. O consentimento de marketing será separado da
-                    participação.
+                    A política completa e os canais de atendimento serão
+                    disponibilizados antes da abertura das participações. O
+                    consentimento de marketing será separado da participação.
                   </p>
                 </>
               )}

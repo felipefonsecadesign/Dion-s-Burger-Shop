@@ -26,7 +26,8 @@ function icon(name: BrandIconName) {
     return <BrandIcon name={name} {...props} />;
   };
 }
-export const ArrowUpRight = icon("ArrowUpRight"),
+export const ArrowRight = icon("ArrowRight"),
+  ArrowUpRight = icon("ArrowUpRight"),
   Volume2 = icon("Volume2"),
   VolumeX = icon("VolumeX"),
   X = icon("X"),

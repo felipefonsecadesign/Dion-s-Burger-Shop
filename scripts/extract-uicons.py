@@ -8,7 +8,7 @@ from fontTools.ttLib import TTFont
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 root=Path(__file__).resolve().parents[1]
-selection={'Fries':'french-fries','CupSoda':'drink-alt','IceCreamBowl':'ice-cream','Burger':'hamburger','Percent':'badge-percent','ArrowUpRight':'arrow-up-right','Volume2':'volume','VolumeX':'volume-slash','X':'cross-small','Ticket':'ticket','RotateCcw':'rotate-left','Sparkles':'sparkles','ArrowUp':'arrow-up','Star':'star'}
+selection={'Fries':'french-fries','CupSoda':'drink-alt','IceCreamBowl':'ice-cream','Burger':'hamburger','Percent':'badge-percent','ArrowRight':'arrow-small-right','ArrowUpRight':'arrow-up-right','Volume2':'volume','VolumeX':'volume-slash','X':'cross-small','Ticket':'ticket','RotateCcw':'rotate-left','Sparkles':'sparkles','ArrowUp':'arrow-up','Star':'star'}
 paths={}
 with tarfile.open(sys.argv[1]) as archive:
  for family,items,font_name in [('bold',selection,'uicons-bold-rounded-MQNABNC6.woff2'),('brands',{'Instagram':'instagram'},'uicons-brands-XJPKRNBN.woff2')]:
@@ -27,3 +27,4 @@ with tarfile.open(sys.argv[1]) as archive:
  (root/'public/icons/LICENSE.txt').write_bytes(archive.extractfile('package/LICENSE').read())
 (root/'lib/icon-paths.ts').write_text('// Exact Flaticon Uicons 3.3.1 outlines. Attribution: Flaticon. See public/icons/LICENSE.txt.\nexport const iconPaths = '+json.dumps(paths,indent=2)+' as const;\n')
 print(f'Extracted {len(paths)} exact icon outlines.')
+
