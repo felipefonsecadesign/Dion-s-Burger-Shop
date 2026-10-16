@@ -133,7 +133,6 @@ export default function Campaign() {
           <a href="/roleta" aria-label="Dion’s Burger Shop">
             <img src="/brand/logo.svg" alt="Dion’s Burger Shop" />
           </a>
-          <span className="edition">UM GIRO. UM MOTIVO A MAIS.</span>
           <button
             className="sound"
             aria-label={sound ? "Desativar som" : "Ativar som"}
@@ -144,9 +143,6 @@ export default function Campaign() {
           </button>
         </header>
         <section className="hero">
-          <div className="campaign-tag">
-            <span /> EM BREVE NA DION’S
-          </div>
           <h1>
             SUA <span>SORTE</span>
             <br />
