@@ -22,6 +22,7 @@ const icons = [Fries, CupSoda, IceCreamBowl, Burger, Percent];
 import CampaignBackground from "@/components/campaign-background";
 import Celebration from "@/components/celebration";
 import Preloader from "@/components/preloader";
+import SnakeBackdrop from "@/components/snake-backdrop";
 export default function Campaign() {
   const contentRef = useRef<HTMLDivElement>(null);
   const [introReady, setIntroReady] = useState(false);
@@ -133,7 +134,7 @@ export default function Campaign() {
   return (
     <main>
       <div className="campaign-content" ref={contentRef}>
-        <CampaignBackground active={introReady && !step} />
+        <CampaignBackground />
         <div className="ambient" aria-hidden="true" />
         <header className="header">
           <a href="/roleta" aria-label="Dion’s Burger Shop">
@@ -163,6 +164,7 @@ export default function Campaign() {
             <br className="desktop" /> Toque na roleta e descubra seu benefício!
           </p>
           <div className={`wheel-stage ${spinning ? "is-spinning" : ""}`}>
+            <SnakeBackdrop active={introReady && !step} />
             <div className="wheel-wrap">
               <div className="pointer" ref={pointerRef}>
                 <span />
@@ -514,4 +516,3 @@ export default function Campaign() {
     </main>
   );
 }
-

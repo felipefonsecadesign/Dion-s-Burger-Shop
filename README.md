@@ -37,7 +37,8 @@ O giro anima um contêiner HTML e aciona a lingueta a cada divisão ultrapassada
 
 ## Abertura e fundo com GSAP
 
-Preloader apenas com o logo, entrada e saída suaves e duração típica de 3 s. Tocar no logo pula a abertura; o botão também funciona pelo teclado. Limite de espera de 3,5 s antes da saída. Aguarda o logo e as fontes, sem exibir porcentagens fictícias. Há fallback CSS e alternativa sem JavaScript. A preferência de movimento reduzido pula a abertura e mantém o fundo estático.
+Preloader apenas com o logo, entrada e saída suaves e duração típica de 3,4 s e saída em dois painéis pretos que se afastam lateralmente. Tocar no logo pula a abertura; o botão também funciona pelo teclado. Limite de espera de 3,5 s antes da saída. Aguarda o logo e as fontes, sem exibir porcentagens fictícias. Há fallback CSS e alternativa sem JavaScript. A preferência de movimento reduzido pula a abertura e mantém o fundo estático.
 
-`lib/brand-lines.ts` preserva os caminhos vetoriais originais. Apenas o último trecho Bézier de line-3 é deformado, em um ciclo suave de 7,6 s. O loop pausa fora da tela e com a aba oculta; ao abrir um modal, o fundo volta ao estado estático. `useGSAP` e `gsap.matchMedia` limpam as animações e os listeners.
+`lib/brand-lines.ts` preserva os caminhos vetoriais originais. `SnakeBackdrop` usa o mesmo traço amarelo arredondado em uma rota Bézier fechada na altura da roleta. O corpo percorre as curvas em um ciclo contínuo de 24 s, por trás da roda. O loop pausa fora da tela e com a aba oculta; ao abrir um modal, o fundo volta ao estado estático. `useGSAP` e `gsap.matchMedia` limpam as animações e os listeners.
+
 

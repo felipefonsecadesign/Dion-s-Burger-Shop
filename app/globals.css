@@ -1104,3 +1104,53 @@ footer button:hover {
 .preloader-logo-button:focus-visible {
   outline-offset: 8px;
 }
+
+/* Two black curtains reveal the campaign; the mark remains the only visible asset. */
+.preloader {
+  background: transparent;
+  isolation: isolate;
+  overflow: hidden;
+  animation-delay: 6s;
+}
+.preloader-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.1%;
+  background: #0d0d0d;
+  z-index: -1;
+  pointer-events: none;
+}
+.preloader-panel-left {
+  left: 0;
+}
+.preloader-panel-right {
+  right: 0;
+}
+.wheel-wrap {
+  z-index: 1;
+}
+.snake-backdrop {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100vw;
+  height: clamp(320px, 44vw, 640px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.23;
+}
+.snake-backdrop svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+@media (max-width: 760px) {
+  .snake-backdrop {
+    width: 180vw;
+    height: 390px;
+    opacity: 0.21;
+  }
+}

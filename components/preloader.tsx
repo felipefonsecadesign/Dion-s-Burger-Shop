@@ -43,11 +43,20 @@ export default function Preloader({ onComplete, contentRef }: Props) {
             {
               autoAlpha: 0,
               scale: reduced ? 1 : 1.035,
-              duration: reduced ? 0 : 0.65,
+              duration: reduced ? 0 : 0.45,
             },
             0,
           )
-          .to(overlay, { autoAlpha: 0, duration: reduced ? 0 : 0.7 }, 0);
+          .to(
+            ".preloader-panel-left",
+            { xPercent: reduced ? 0 : -101, duration: reduced ? 0 : 1.05 },
+            reduced ? 0 : 0.12,
+          )
+          .to(
+            ".preloader-panel-right",
+            { xPercent: reduced ? 0 : 101, duration: reduced ? 0 : 1.05 },
+            reduced ? 0 : 0.12,
+          );
       });
       skip.current = finish;
       const maybeFinish = contextSafe(() => {
@@ -107,6 +116,14 @@ export default function Preloader({ onComplete, contentRef }: Props) {
         <style>{`.preloader{display:none!important}`}</style>
       </noscript>
       <div ref={root} className="preloader">
+        <div
+          className="preloader-panel preloader-panel-left"
+          aria-hidden="true"
+        />
+        <div
+          className="preloader-panel preloader-panel-right"
+          aria-hidden="true"
+        />
         <div className="preloader-art">
           <button
             className="preloader-logo-button"
