@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "motion/react";
 import {
   Volume2,
   VolumeX,
+  Instagram,
   X,
   Fries,
   IceCreamBowl,
@@ -252,15 +253,23 @@ export default function Campaign() {
         </section>
         <footer>
           <img src="/brand/logo.svg" alt="Dion’s" />
-          <p>Experiência exclusiva Dion’s Burger Shop.</p>
+          <p>Dion’s Burger Shop - 2026. Todos os direitos reservados</p>
           <nav>
+            <a
+              className="footer-instagram"
+              href="https://www.instagram.com/dionsburgershop/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram da Dion’s Burger Shop (abre em nova aba)"
+            >
+              <Instagram size={22} />
+            </a>
             <button onClick={() => setStep("rules")}>Regras da campanha</button>
             <button onClick={() => setStep("privacy")}>Privacidade</button>
           </nav>
           <small>
-            Campanha em pré-lançamento. Cadastre-se para acompanhar. Resgates em
-            breve.
-            {origin && ` Origem: ${origin}`}
+            CNPJ: 53.720.893/0001-06 | R. 49, 17c, Jereissati - Setor D,
+            Maracanaú/CE | (85) 98798-6922
           </small>
         </footer>
         {step && (

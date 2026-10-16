@@ -339,7 +339,21 @@ footer p {
 footer nav {
   margin-left: auto;
   display: flex;
+  align-items: center;
   gap: 24px;
+}
+.footer-instagram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--yellow);
+  border-radius: 50%;
+}
+.footer-instagram:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 3px;
 }
 footer button {
   color: #aaa;
@@ -353,6 +367,8 @@ footer small {
   text-align: center;
   color: #777;
   font-size: 9px;
+  line-height: 1.7;
+  text-wrap: balance;
 }
 .overlay {
   position: fixed;
