@@ -835,6 +835,7 @@ input {
   opacity: 0.19;
 }
 .brand-line svg {
+  overflow: visible;
   display: block;
   max-width: none;
   height: auto;
@@ -1121,3 +1122,4 @@ footer button:hover {
     display: none;
   }
 }
+
