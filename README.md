@@ -30,6 +30,7 @@ Fontes Barlow Condensed e DM Sans via Google Fonts com fallback local. Assets of
 
 Logo vetorial exportado do Figma oficial (nó 6:44). As linhas anexadas são preservadas em `public/brand/line-3.svg` e `line-12.svg` e compõem as bordas do fundo, com entrada única e alternativa sem movimento.
 
-Ícones: Flaticon Uicons 3.3.1, família Bold Rounded; Instagram usa o símbolo oficial da família Brands. Os contornos originais foram extraídos do pacote oficial para SVGs individuais e `lib/icon-paths.ts`; nenhuma fonte inteira ou requisição ao Flaticon é necessária no navegador. Crédito no rodapé e licença em `public/icons/LICENSE.txt`. O script `scripts/extract-uicons.py` documenta a reprodução (fonttools + brotli; pacote npm original como argumento).
+Ícones: Flaticon Uicons 3.3.1, família Bold Rounded; Instagram usa o símbolo oficial da família Brands. Os contornos originais foram extraídos do pacote oficial para SVGs individuais e `lib/icon-paths.ts`; nenhuma fonte inteira ou requisição ao Flaticon é necessária no navegador. Crédito em Privacidade e licença em `public/icons/LICENSE.txt`. O script `scripts/extract-uicons.py` documenta a reprodução (fonttools + brotli; pacote npm original como argumento).
 
 O giro anima um contêiner HTML e aciona a lingueta a cada divisão ultrapassada. Confetes são disparados uma vez ao revelar o resultado. Todos os efeitos respeitam movimento reduzido. Mantido o Motion já instalado, sem dependência adicional de GSAP.
+

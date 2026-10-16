@@ -15,7 +15,6 @@ import {
   Percent,
   Burger,
   Sparkles,
-  Star,
 } from "@/components/brand-icon";
 import { benefits, getDemoResult, type Benefit } from "@/lib/campaign";
 import Wheel from "@/components/wheel";
@@ -159,11 +158,6 @@ export default function Campaign() {
           <br className="desktop" /> Toque na roleta e descubra seu benefício!
         </p>
         <div className={`wheel-stage ${spinning ? "is-spinning" : ""}`}>
-          <span className="side-note">
-            FEITA PRA QUEM
-            <br />
-            TEM BOM GOSTO.
-          </span>
           <div className="wheel-wrap">
             <div className="pointer" ref={pointerRef}>
               <span />
@@ -186,12 +180,6 @@ export default function Campaign() {
               <span>{spinning ? "GIRANDO" : "GIRAR"}</span>
               <small>{spinning ? "SEGURA A EMOÇÃO" : "TOCA AQUI"}</small>
             </button>
-          </div>
-          <div className="lucky-stamp" aria-hidden="true">
-            BOM
-            <br />
-            DEMAIS!
-            <Star size={16} />
           </div>
         </div>
         <p className="spin-caption" role="status">
@@ -273,14 +261,6 @@ export default function Campaign() {
         <img src="/brand/logo.svg" alt="Dion’s" />
         <p>Experiência exclusiva Dion’s Burger Shop.</p>
         <nav>
-          <a
-            className="icon-credit"
-            href="https://www.flaticon.com/uicons"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Ícones: Flaticon
-          </a>
           <button onClick={() => setStep("rules")}>Regras da campanha</button>
           <button onClick={() => setStep("privacy")}>Privacidade</button>
         </nav>
@@ -484,6 +464,7 @@ export default function Campaign() {
             {step === "privacy" && (
               <>
                 <h2 id="dialog-title">Sua privacidade</h2>
+                <p>Ícones por <a href="https://www.flaticon.com/uicons" target="_blank" rel="noopener noreferrer" style={{textDecoration:"underline",textUnderlineOffset:"3px"}}>Flaticon Uicons</a>.</p>
                 <p>
                   Nesta demonstração, os campos são usados somente na memória
                   desta página para montar a prévia do voucher. Use dados
@@ -508,4 +489,6 @@ export default function Campaign() {
     </main>
   );
 }
+
+
 

@@ -220,43 +220,10 @@ h1 span {
 .is-spinning .spin-button > span {
   font-size: clamp(20px, 3vw, 30px);
 }
-.side-note {
-  position: absolute;
-  left: 4%;
-  top: 43%;
-  font-family: "Barlow Condensed", Impact, sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.1;
-  letter-spacing: 1px;
-  text-align: left;
-  transform: rotate(-9deg);
-  color: #777;
-}
 
-.lucky-stamp {
-  position: absolute;
-  right: 0;
-  top: 40%;
-  border: 1px solid #f1b73780;
-  color: var(--yellow);
-  width: 112px;
-  height: 112px;
-  border-radius: 50%;
-  transform: rotate(13deg);
-  font-family: "Barlow Condensed", Impact, sans-serif;
-  font-weight: 800;
-  font-size: 26px;
-  line-height: 0.9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.lucky-stamp span {
-  font-size: 20px;
-  margin-top: 6px;
-}
+
+
+
 .spin-caption {
   color: #b1b1b1;
   font-size: 11px;
@@ -703,10 +670,7 @@ input::placeholder {
   .wheel-wrap {
     max-width: 440px;
   }
-  .side-note,
-  .lucky-stamp {
-    display: none;
-  }
+
   .spin-button > span {
     font-size: 36px;
   }
@@ -953,9 +917,7 @@ footer {
   color: #f1b737c9;
 }
 
-.lucky-stamp svg {
-  margin-top: 9px;
-}
+
 .benefits svg {
   transition: transform 0.25s var(--motion-press);
   flex-shrink: 0;
@@ -981,12 +943,7 @@ footer {
   opacity: 0.9;
   transform: rotate(12deg);
 }
-footer .icon-credit {
-  font-size: 10px;
-  color: #aaa;
-  padding: 10px 0;
-  align-self: center;
-}
+
 footer a:hover,
 footer button:hover {
   color: var(--yellow);
@@ -1107,4 +1064,5 @@ footer button:hover {
     transition: none;
   }
 }
+
 
