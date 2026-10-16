@@ -5,7 +5,6 @@ import {
   Volume2,
   VolumeX,
   X,
-  Ticket,
   Fries,
   IceCreamBowl,
   CupSoda,
@@ -288,13 +287,9 @@ export default function Campaign() {
               >
                 <X />
               </button>
-              <span className="modal-kicker">PRÉ-LANÇAMENTO</span>
               {step === "result" && result && (
                 <>
                   <Celebration />
-                  <div className="celebrate" aria-hidden="true">
-                    <Ticket className="ticket-horizontal" size={52} />
-                  </div>
                   <h2 id="dialog-title">
                     SUA SORTE
                     <br />
