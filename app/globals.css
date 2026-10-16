@@ -315,6 +315,21 @@ h1 span {
   line-height: 0.96;
   margin: 12px 0;
 }
+.brand-strip > div {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+.strip-pattern {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 39%;
+  height: 100%;
+  color: var(--black);
+  opacity: 0.22;
+  pointer-events: none;
+  mask-image: linear-gradient(90deg, transparent, #000 22%);
+}
 .brand-strip p {
   font-size: 11px;
   margin: 0;
@@ -725,6 +740,10 @@ input::placeholder {
   }
   .brand-strip h2 {
     font-size: 30px;
+  }
+  .strip-pattern {
+    width: 42%;
+    opacity: 0.09;
   }
   .brand-strip p {
     font-size: 9px;

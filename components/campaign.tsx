@@ -20,6 +20,7 @@ import Celebration from "@/components/celebration";
 import Preloader from "@/components/preloader";
 import SnakeBackdrop from "@/components/snake-backdrop";
 import CustomerForm from "@/components/customer-form";
+import { iconPaths } from "@/lib/icon-paths";
 export default function Campaign() {
   const contentRef = useRef<HTMLDivElement>(null);
   const [introReady, setIntroReady] = useState(false);
@@ -234,20 +235,27 @@ export default function Campaign() {
           <div>
             <span>O GIRO É SÓ O COMEÇO.</span>
             <h2>
-              A fome a gente
+              A FOME A GENTE
               <br />
-              resolve por aqui.
+              RESOLVE POR AQUI.
             </h2>
             <p>Feito no capricho. Do primeiro ao último pedaço.</p>
           </div>
-          <img
-            className="strip-line"
-            src="/brand/line-12.svg"
-            width="1056"
-            height="1033"
-            alt=""
-            aria-hidden="true"
-          />
+          <svg className="strip-pattern" aria-hidden="true" focusable="false">
+            <defs>
+              <pattern id="dions-food-pattern" width="168" height="156" patternUnits="userSpaceOnUse" patternTransform="rotate(-14)">
+                <g fill="currentColor">
+                  <path d={iconPaths.Burger} transform="translate(12 12) scale(2)" />
+                  <path d={iconPaths.Fries} transform="translate(99 18) scale(1.7)" />
+                  <path d={iconPaths.CupSoda} transform="translate(22 95) scale(1.7)" />
+                  <path d={iconPaths.Burger} transform="translate(102 94) scale(1.8)" />
+                  <circle cx="85" cy="79" r="3" />
+                  <circle cx="7" cy="78" r="3" />
+                </g>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#dions-food-pattern)" />
+          </svg>
         </section>
         <footer>
           <img src="/brand/logo.svg" alt="Dion’s" />
