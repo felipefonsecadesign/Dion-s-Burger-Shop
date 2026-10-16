@@ -37,6 +37,7 @@ O giro anima um contêiner HTML e aciona a lingueta a cada divisão ultrapassada
 
 ## Abertura e fundo com GSAP
 
-Preloader com traçado da linha original e entrada do logo, duração típica de 1,6 s, opção Pular abertura e limite de espera de 2,4 s antes da saída. Aguarda o logo e as fontes, sem exibir porcentagens fictícias. Há fallback CSS e alternativa sem JavaScript. A preferência de movimento reduzido pula a abertura e mantém o fundo estático.
+Preloader apenas com o logo, entrada e saída suaves e duração típica de 3 s. Tocar no logo pula a abertura; o botão também funciona pelo teclado. Limite de espera de 3,5 s antes da saída. Aguarda o logo e as fontes, sem exibir porcentagens fictícias. Há fallback CSS e alternativa sem JavaScript. A preferência de movimento reduzido pula a abertura e mantém o fundo estático.
 
 `lib/brand-lines.ts` preserva os caminhos vetoriais originais. Apenas o último trecho Bézier de line-3 é deformado, em um ciclo suave de 7,6 s. O loop pausa fora da tela e com a aba oculta; ao abrir um modal, o fundo volta ao estado estático. `useGSAP` e `gsap.matchMedia` limpam as animações e os listeners.
+

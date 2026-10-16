@@ -2,7 +2,6 @@
 import { useRef, type RefObject } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { line12 } from "@/lib/brand-lines";
 gsap.registerPlugin(useGSAP);
 type Props = {
   onComplete: () => void;
@@ -43,16 +42,12 @@ export default function Preloader({ onComplete, contentRef }: Props) {
             ".preloader-art",
             {
               autoAlpha: 0,
-              y: reduced ? 0 : -12,
-              duration: reduced ? 0 : 0.18,
+              scale: reduced ? 1 : 1.035,
+              duration: reduced ? 0 : 0.65,
             },
             0,
           )
-          .to(
-            overlay,
-            { autoAlpha: 0, duration: reduced ? 0 : 0.5 },
-            reduced ? 0 : 0.08,
-          );
+          .to(overlay, { autoAlpha: 0, duration: reduced ? 0 : 0.7 }, 0);
       });
       skip.current = finish;
       const maybeFinish = contextSafe(() => {
@@ -68,23 +63,16 @@ export default function Preloader({ onComplete, contentRef }: Props) {
       if (!reduced) {
         intro
           .fromTo(
-            ".preloader-line",
-            { strokeDashoffset: 1 },
-            { strokeDashoffset: 0, duration: 1.05, ease: "power2.inOut" },
+            ".preloader-logo",
+            { autoAlpha: 0, scale: 0.9 },
+            { autoAlpha: 1, scale: 1, duration: 1.25, ease: "power2.out" },
             0,
           )
-          .fromTo(
-            ".preloader-logo",
-            { autoAlpha: 0, scale: 0.94 },
-            { autoAlpha: 1, scale: 1, duration: 0.65 },
-            0.22,
-          )
-          .fromTo(
-            ".preloader-caption",
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.3 },
-            0.5,
-          );
+          .to(".preloader-logo", {
+            scale: 1.025,
+            duration: 1,
+            ease: "sine.inOut",
+          });
       } else {
         introDone = true;
       }
@@ -97,7 +85,7 @@ export default function Preloader({ onComplete, contentRef }: Props) {
           maybeFinish();
         }
       });
-      const timeout = setTimeout(finish, reduced ? 150 : 2400);
+      const timeout = setTimeout(finish, reduced ? 150 : 3500);
       const onPreference = () => {
         if (matchMedia("(prefers-reduced-motion: reduce)").matches) finish();
       };
@@ -120,37 +108,24 @@ export default function Preloader({ onComplete, contentRef }: Props) {
       </noscript>
       <div ref={root} className="preloader">
         <div className="preloader-art">
-          <svg
-            className="preloader-drawing"
-            viewBox="0 0 1056 1033"
-            fill="none"
-            aria-hidden="true"
+          <button
+            className="preloader-logo-button"
+            aria-label="Pular abertura"
+            onClick={() => skip.current()}
           >
-            <path
-              className="preloader-line"
-              d={line12}
-              stroke="#F1B737"
-              strokeWidth="36"
-              strokeLinecap="round"
-              pathLength="1"
-              strokeDasharray="1"
+            <img
+              className="preloader-logo"
+              src="/brand/logo.svg"
+              width="1774"
+              height="887"
+              alt="Dion’s Burger Shop"
+              fetchPriority="high"
             />
-          </svg>
-          <img
-            className="preloader-logo"
-            src="/brand/logo.svg"
-            width="1774"
-            height="887"
-            alt="Dion’s Burger Shop"
-            fetchPriority="high"
-          />
-          <p className="preloader-caption" role="status">
+          </button>
+          <p className="sr-only" role="status">
             Preparando seu giro.
           </p>
         </div>
-        <button className="preloader-skip" onClick={() => skip.current()}>
-          Pular abertura
-        </button>
       </div>
     </>
   );

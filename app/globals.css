@@ -1059,7 +1059,7 @@ footer button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: preloader-failsafe 0s 4s forwards;
+  animation: preloader-failsafe 0s 5.5s forwards;
 }
 .preloader-art {
   position: relative;
@@ -1070,15 +1070,7 @@ footer button:hover {
   justify-content: center;
   flex-direction: column;
 }
-.preloader-drawing {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  inset: 0;
-  opacity: 0.38;
-  transform: rotate(-14deg);
-  pointer-events: none;
-}
+
 .preloader-logo {
   position: relative;
   display: block;
@@ -1087,30 +1079,7 @@ footer button:hover {
   height: auto;
   aspect-ratio: 2/1;
 }
-.preloader-caption {
-  position: relative;
-  font-size: 11px;
-  letter-spacing: 0.4px;
-  color: #c4c4c4;
-  margin: 15px 0 0;
-}
-.preloader-skip {
-  position: absolute;
-  bottom: max(30px, env(safe-area-inset-bottom));
-  left: 50%;
-  transform: translateX(-50%);
-  background: none;
-  border: 1px solid #ffffff30;
-  border-radius: 30px;
-  color: #bdbdbd;
-  font-size: 11px;
-  padding: 13px 20px;
-  min-height: 44px;
-}
-.preloader-skip:hover {
-  color: #f1b737;
-  border-color: #f1b737;
-}
+
 @keyframes preloader-failsafe {
   to {
     visibility: hidden;
@@ -1123,3 +1092,15 @@ footer button:hover {
   }
 }
 
+.preloader-logo-button {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+.preloader-logo-button:focus-visible {
+  outline-offset: 8px;
+}
