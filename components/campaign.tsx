@@ -16,7 +16,6 @@ import { benefits, getPreviewResult, type Benefit } from "@/lib/campaign";
 import { WheelAudio } from "@/lib/wheel-audio";
 import Wheel from "@/components/wheel";
 const icons = [Fries, CupSoda, IceCreamBowl, Burger, Percent];
-import CampaignBackground from "@/components/campaign-background";
 import Celebration from "@/components/celebration";
 import Preloader from "@/components/preloader";
 import SnakeBackdrop from "@/components/snake-backdrop";
@@ -124,7 +123,6 @@ export default function Campaign() {
   return (
     <main>
       <div className="campaign-content" ref={contentRef}>
-        <CampaignBackground />
         <div className="ambient" aria-hidden="true" />
         <header className="header">
           <a href="/roleta" aria-label="Dion’s Burger Shop">
